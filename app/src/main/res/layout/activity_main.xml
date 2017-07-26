@@ -8,7 +8,7 @@
 
     <com.example.sxs10540.uicustomviews.TitleLayout
         android:layout_width="match_parent"
-        android:layout_height="50pt">
+        android:layout_height="40pt">
 
     </com.example.sxs10540.uicustomviews.TitleLayout>
     <LinearLayout
@@ -56,7 +56,7 @@
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_marginLeft="50pt"
+        android:layout_marginLeft="10pt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <CheckBox
@@ -72,12 +72,11 @@
 
     <LinearLayout
         android:orientation="horizontal"
-
-        android:layout_width="match_parent"
+        android:layout_marginLeft="20pt"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <Button
             android:layout_margin="10dp"
-            android:layout_marginLeft="200dp"
             android:id="@+id/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,12 +85,19 @@
             android:gravity="center_horizontal"
             />
         <Button
-            android:layout_marginRight="400dp"
             android:layout_margin="10dp"
             android:id="@+id/go"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="GO第三页"
+            android:gravity="center_horizontal"
+            />
+        <Button
+            android:layout_margin="10dp"
+            android:id="@+id/person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="通讯录"
             android:gravity="center_horizontal"
             />
 

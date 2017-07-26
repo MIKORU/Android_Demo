@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         remeberPass = (CheckBox) findViewById(R.id.remeber);
         Button button2 = (Button) findViewById(R.id.login);
         Button buttongo = (Button) findViewById(R.id.go);
+        Button buttonperson = (Button) findViewById(R.id.person);
 
         load();
 
@@ -85,17 +86,23 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(MainActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
                     }
+                } else{
+                    Toast.makeText(MainActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
                 }
 //                else{
-//                    Toast.makeText(MainActivity.this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
+//                    ContentValues values = new ContentValues();
+//                    values.put("name",uname);
+//                    values.put("password",pd);
+//                    db.insert("User", null, values);
 //                }
-                else{
-                    ContentValues values = new ContentValues();
-                    values.put("name",uname);
-                    values.put("password",pd);
-                    db.insert("User", null, values);
-                }
 
+            }
+        });
+        buttonperson.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,PersonActivity.class);
+                startActivity(intent);
             }
         });
     }

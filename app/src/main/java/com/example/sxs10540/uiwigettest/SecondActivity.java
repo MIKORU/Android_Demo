@@ -100,7 +100,7 @@ public class SecondActivity extends AppCompatActivity {
                         == PackageManager.PERMISSION_GRANTED){
                     call();
                 }else{
-                    Toast.makeText(this, "你同意了权限申请", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "你拒绝了权限申请", Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:

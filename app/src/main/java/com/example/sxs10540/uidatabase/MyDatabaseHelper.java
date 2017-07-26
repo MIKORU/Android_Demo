@@ -27,7 +27,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USER);
-        Toast.makeText(mContext, "数据库已经创建成功", Toast.LENGTH_SHORT).show();
+        //创建管理员账号
+        db.execSQL("Insert into User (name,password) values(?,?)",new String[]{
+                "mikoru","27185306"
+            });
+        Toast.makeText(mContext, "初始化数据成功", Toast.LENGTH_SHORT).show();
     }
 
     @Override
