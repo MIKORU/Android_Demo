@@ -28,6 +28,8 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.ViewHolder
         View view = LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.person_item,parent,false
         );
+        //设置宽度
+        view.getLayoutParams().height = 100;
         return new ViewHolder(view);
     }
 

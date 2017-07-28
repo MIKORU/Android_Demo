@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         buttongo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,ThirdActivity.class);
+                Intent intent = new Intent(MainActivity.this,WebActivity.class);
                 startActivity(intent);
             }
         });

@@ -3,7 +3,8 @@
     package="com.example.sxs10540.uiwigettest">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -21,7 +22,8 @@
         </activity>
         <activity android:name=".SecondActivity" />
         <activity android:name=".ThirdActivity" />
-        <activity android:name=".PersonActivity"></activity>
+        <activity android:name=".PersonActivity" />
+        <activity android:name=".WebActivity"></activity>
     </application>
 
 </manifest>

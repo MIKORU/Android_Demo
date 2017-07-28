@@ -6,11 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.sxs10540.uiwigettest.MainActivity">
 
-    <com.example.sxs10540.uicustomviews.TitleLayout
-        android:layout_width="match_parent"
-        android:layout_height="40pt">
 
-    </com.example.sxs10540.uicustomviews.TitleLayout>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_margin="10dp"
