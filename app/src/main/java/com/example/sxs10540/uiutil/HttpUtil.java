@@ -1,12 +1,12 @@
 package com.example.sxs10540.uiutil;
 
+import com.example.sxs10540.uiinterface.HttpCallbackListener;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.Authenticator;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import okhttp3.OkHttpClient;

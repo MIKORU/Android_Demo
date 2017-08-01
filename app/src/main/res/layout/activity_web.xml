@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context="com.example.sxs10540.uiwigettest.WebActivity">
 
+    <com.example.sxs10540.uicustomviews.ToolbarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.example.sxs10540.uicustomviews.ToolbarLayout>
+
     <Button
         android:id="@+id/send_request"
         android:layout_width="wrap_content"

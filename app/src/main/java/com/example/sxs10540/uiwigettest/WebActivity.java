@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sxs10540.uibean.App;
-import com.example.sxs10540.uiutil.HttpCallbackListener;
+import com.example.sxs10540.uiinterface.HttpCallbackListener;
 import com.example.sxs10540.uiutil.HttpUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -22,18 +22,11 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -44,7 +37,7 @@ public class WebActivity extends AppCompatActivity {
 
     TextView responseText;
     String responseData;
-    final String address = "your address";
+    final String address = "172.16.27.13";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,16 +56,13 @@ public class WebActivity extends AppCompatActivity {
         });
 
 /**    页面调取百度页面
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("https://www.baidu.com");
+ webView.getSettings().setJavaScriptEnabled(true);
+ webView.setWebViewClient(new WebViewClient());
+ webView.loadUrl("https://www.baidu.com");
  **/
     }
 
-    /**
-     * 注意不能在线程中更新处理信息
-     */
-    private void sendOkHttpRequest(){
+    private void sendOkHttpRequest() {
         HttpUtil.sendOkHttpRequest(address, new okhttp3.Callback() {
 
             @Override
@@ -83,14 +73,14 @@ public class WebActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 responseData = response.body().string();
-                if(responseData != null) {
+                if (responseData != null) {
                     parseJSONWithGSON(responseData);
                 }
             }
         });
     }
 
-    private void sendHttpUrlRequest(){
+    private void sendHttpUrlRequest() {
         HttpUtil.sendHttpRequest(address, new HttpCallbackListener() {
             @Override
             public void onFinish(String response) {
@@ -105,8 +95,8 @@ public class WebActivity extends AppCompatActivity {
 
     }
 
-    private void sendRequsetWithOkConnection(){
-        new Thread(new Runnable(){
+    private void sendRequsetWithOkConnection() {
+        new Thread(new Runnable() {
 
             @Override
             public void run() {
@@ -131,31 +121,33 @@ public class WebActivity extends AppCompatActivity {
      * Gson解析json：要与bean属性名称对应
      * @param jsonData
      */
-    private void parseJSONWithGSON(String jsonData){
+    private void parseJSONWithGSON(String jsonData) {
         Gson gson = new Gson();
         List<App> appList = gson.fromJson(jsonData,
-                new TypeToken<List<App>>() {}.getType());
-        for(App app:appList){
-            Log.d(TAG, "id is "+app.getId());
-            Log.d(TAG, "name is "+app.getName());
-            Log.d(TAG, "version is "+app.getVersion());
+                new TypeToken<List<App>>() {
+                }.getType());
+        for (App app : appList) {
+            Log.d(TAG, "id is " + app.getId());
+            Log.d(TAG, "name is " + app.getName());
+            Log.d(TAG, "version is " + app.getVersion());
             showResponse(app);
         }
     }
 
     /**
      * JSONObject解析
+     *
      * @param jsonData
      */
-    private void parseJSONWithJSONObject(String jsonData){
-        try{
+    private void parseJSONWithJSONObject(String jsonData) {
+        try {
             JSONArray jsonArray = new JSONArray(jsonData);
-            for(int i=0;i<jsonArray.length();i++){
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String id = jsonObject.getString("id");
                 String version = jsonObject.getString("version");
                 String name = jsonObject.getString("name");
-                Log.d(TAG, id+" "+version+" " + name);
+                Log.d(TAG, id + " " + version + " " + name);
             }
 
         } catch (JSONException e) {
@@ -168,8 +160,8 @@ public class WebActivity extends AppCompatActivity {
      * XML解析
      * @param xmlData
      */
-    private void parseXMLWithPull(String xmlData){
-        try{
+    private void parseXMLWithPull(String xmlData) {
+        try {
 
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             XmlPullParser xmlPullParser = factory.newPullParser();
@@ -179,24 +171,24 @@ public class WebActivity extends AppCompatActivity {
             String id = "";
             String name = "";
             String version = "";
-            while(eventType != XmlPullParser.END_DOCUMENT){
+            while (eventType != XmlPullParser.END_DOCUMENT) {
                 String nodeName = xmlPullParser.getName();
-                switch (eventType){
-                    case XmlPullParser.START_TAG:{
+                switch (eventType) {
+                    case XmlPullParser.START_TAG: {
                         if ("id".equals(nodeName)) {
                             id = xmlPullParser.nextText();
                         } else if ("name".equals(nodeName)) {
                             name = xmlPullParser.nextText();
-                        } else if ("version".equals(nodeName)){
+                        } else if ("version".equals(nodeName)) {
                             version = xmlPullParser.nextText();
                         }
                         break;
                     }
-                    case XmlPullParser.END_TAG:{
-                        if("app".equals(nodeName)){
-                            Log.d(TAG, "id is "+id);
-                            Log.d(TAG, "name is "+name);
-                            Log.d(TAG, "version is "+version);
+                    case XmlPullParser.END_TAG: {
+                        if ("app".equals(nodeName)) {
+                            Log.d(TAG, "id is " + id);
+                            Log.d(TAG, "name is " + name);
+                            Log.d(TAG, "version is " + version);
                         }
                         break;
                     }
@@ -215,15 +207,16 @@ public class WebActivity extends AppCompatActivity {
 
     /**
      * 线程UI显示responseText
+     *
      * @param app
      */
-    private void showResponse(final App app){
+    private void showResponse(final App app) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                responseText.setText("name is"+app.getName()+"\n" +
-                        "id is "+app.getId()+"\n" +
-                        "version is "+app.getVersion()+"\n");
+                responseText.setText("name is" + app.getName() + "\n" +
+                        "id is " + app.getId() + "\n" +
+                        "version is " + app.getVersion() + "\n");
             }
         });
     }

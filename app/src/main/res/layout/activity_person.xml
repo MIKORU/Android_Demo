@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context="com.example.sxs10540.uiwigettest.PersonActivity">
 
+    <com.example.sxs10540.uicustomviews.ToolbarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </com.example.sxs10540.uicustomviews.ToolbarLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/person_recycle_view"
         android:layout_width="match_parent"

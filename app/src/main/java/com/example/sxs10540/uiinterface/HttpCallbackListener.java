@@ -1,4 +1,4 @@
-package com.example.sxs10540.uiutil;
+package com.example.sxs10540.uiinterface;
 
 /**
  * Created by sxs10540 on 2017/7/27.
