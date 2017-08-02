@@ -1,19 +1,32 @@
-package com.example.sxs10540.uiwigettest;
+package com.example.sxs10540.uifragment;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
-import android.os.IBinder;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
-public class DownloadActivity extends AppCompatActivity {
+import com.example.sxs10540.uiwigettest.R;
+
+/**
+ * Created by sxs10540 on 2017/8/2.
+ */
+
+public class DownloadFragment extends Fragment {
+
+    private View view;
 
     private DownloadService.DownloadBinder downloadBinder;
 
@@ -29,23 +42,23 @@ public class DownloadActivity extends AppCompatActivity {
         }
     };
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_download);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.activity_download, container, false);
+        Context context = getContext();
+        Intent intent = new Intent(context, DownloadService.class);
+        context.startService(intent);
+        context.bindService(intent, serviceConnection, context.BIND_AUTO_CREATE);
 
-        Intent intent = new Intent(this, DownloadService.class);
-        startService(intent);
-        bindService(intent, serviceConnection, BIND_AUTO_CREATE);
+        Button start = (Button) view.findViewById(R.id.start);
+        Button pause = (Button) view.findViewById(R.id.pause);
+        Button cancel = (Button) view.findViewById(R.id.cancel);
 
-        Button start = (Button) findViewById(R.id.start);
-        Button pause = (Button) findViewById(R.id.pause);
-        Button cancel = (Button) findViewById(R.id.cancel);
-
-        if (ContextCompat.checkSelfPermission(DownloadActivity.this,
+        if (ContextCompat.checkSelfPermission(context,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
                 PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(DownloadActivity.this,
+            ActivityCompat.requestPermissions((Activity) context,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
 
@@ -70,11 +83,8 @@ public class DownloadActivity extends AppCompatActivity {
                 downloadBinder.CancelDownload();
             }
         });
+        return view;
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unbindService(serviceConnection);
-    }
+
 }

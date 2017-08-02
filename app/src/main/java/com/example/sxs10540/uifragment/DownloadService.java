@@ -1,4 +1,4 @@
-package com.example.sxs10540.uiwigettest;
+package com.example.sxs10540.uifragment;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.example.sxs10540.uiinterface.DownLoadListener;
 import com.example.sxs10540.uitask.DownloadTask;
+import com.example.sxs10540.uiwigettest.MainActivity;
+import com.example.sxs10540.uiwigettest.R;
 
 import java.io.File;
 

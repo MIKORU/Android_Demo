@@ -5,6 +5,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.sxs10540.uiadapter.MsgAdapter;
 import com.example.sxs10540.uibean.Msg;
+import com.example.sxs10540.uifragment.MainFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +40,8 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.second_activity);
+
+
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.hide();
@@ -116,4 +122,5 @@ public class SecondActivity extends AppCompatActivity {
         msgList.add(msg3);
 
     }
+
 }

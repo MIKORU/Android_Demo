@@ -1,9 +1,14 @@
-package com.example.sxs10540.uiwigettest;
+package com.example.sxs10540.uifragment;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,6 +17,7 @@ import android.widget.Toast;
 import com.example.sxs10540.uibean.App;
 import com.example.sxs10540.uiinterface.HttpCallbackListener;
 import com.example.sxs10540.uiutil.HttpUtil;
+import com.example.sxs10540.uiwigettest.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -31,22 +37,30 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class WebActivity extends AppCompatActivity {
+/**
+ * Created by sxs10540 on 2017/8/2.
+ */
 
-    private static final String TAG = "WebActivity";
+public class WebFragment extends Fragment {
+
+    private static final String TAG = "WebFragment";
+
+    private Context context ;
 
     TextView responseText;
     String responseData;
-    final String address = "172.16.27.13";
 
+    final String address = "http://172.16.27.13:8009/get_data.json";
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_web);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_web,container,false);
+        context = getContext();
 
-        Button sendRequest = (Button) findViewById(R.id.send_request);
-        responseText = (TextView) findViewById(R.id.response_view);
-        WebView webView = (WebView) findViewById(R.id.web_view);
+        Button sendRequest = (Button) view.findViewById(R.id.send_request);
+        responseText = (TextView) view.findViewById(R.id.response_view);
+        WebView webView = (WebView) view.findViewById(R.id.web_view);
 
         sendRequest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,19 +69,20 @@ public class WebActivity extends AppCompatActivity {
             }
         });
 
-/**    页面调取百度页面
- webView.getSettings().setJavaScriptEnabled(true);
- webView.setWebViewClient(new WebViewClient());
- webView.loadUrl("https://www.baidu.com");
- **/
-    }
+        /**    页面调取百度页面
+         webView.getSettings().setJavaScriptEnabled(true);
+         webView.setWebViewClient(new WebViewClient());
+         webView.loadUrl("https://www.baidu.com");
+         **/
 
+        return view;
+    }
     private void sendOkHttpRequest() {
         HttpUtil.sendOkHttpRequest(address, new okhttp3.Callback() {
 
             @Override
             public void onFailure(Call call, IOException e) {
-                Toast.makeText(WebActivity.this, "oh no sorry", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "oh no sorry", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -89,7 +104,7 @@ public class WebActivity extends AppCompatActivity {
 
             @Override
             public void onError(Exception e) {
-                Toast.makeText(WebActivity.this, "oh no sorry", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "oh no sorry", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -211,7 +226,7 @@ public class WebActivity extends AppCompatActivity {
      * @param app
      */
     private void showResponse(final App app) {
-        runOnUiThread(new Runnable() {
+        ((Activity)context).runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 responseText.setText("name is" + app.getName() + "\n" +
