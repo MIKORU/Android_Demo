@@ -13,7 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.sxs10540.uifragment.ChatFragment;
 import com.example.sxs10540.uifragment.DownloadFragment;
+import com.example.sxs10540.uifragment.FruitFragment;
 import com.example.sxs10540.uifragment.MainFragment;
 import com.example.sxs10540.uifragment.PersonFragment;
 import com.example.sxs10540.uifragment.WebFragment;
@@ -25,33 +27,51 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
 
+    private MainFragment mainFragment = new MainFragment();
+    private DownloadFragment downloadFragment = new DownloadFragment();
+    private PersonFragment personFragment = new PersonFragment();
+    private WebFragment webFragment = new WebFragment();
+    private ChatFragment chatFragment = new ChatFragment();
+    private FruitFragment fruitFragment = new FruitFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        replacesFragment(new MainFragment());
+        replacesFragment(mainFragment);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         ImageView imageView = (ImageView) findViewById(R.id.other);
 
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch ( item.getOrder()) {
+                switch (item.getOrder()) {
                     case 0:
-                        replacesFragment(new DownloadFragment());
+                        replacesFragment(mainFragment);
                         break;
                     case 1:
-                        replacesFragment(new PersonFragment());
+                        replacesFragment(downloadFragment);
                         break;
                     case 2:
-                        replacesFragment(new WebFragment());
+                        replacesFragment(personFragment);
+                        break;
+                    case 3:
+                        replacesFragment(webFragment);
+                        break;
+                    case 4:
+                        replacesFragment(chatFragment);
+                        break;
+                    case 5:
+                        replacesFragment(fruitFragment);
                         break;
                     default:
                         break;
                 }
+                drawerLayout.closeDrawer(GravityCompat.END);
                 return true;
             }
         });
@@ -62,12 +82,15 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.openDrawer(GravityCompat.END);
             }
         });
+
+
     }
 
-    private void replacesFragment(Fragment fragment){
+    public void replacesFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main,fragment);
+        transaction.replace(R.id.main, fragment);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 }

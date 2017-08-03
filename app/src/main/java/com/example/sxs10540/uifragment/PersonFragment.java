@@ -40,7 +40,7 @@ public class PersonFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_person,container,false);
+        View view = inflater.inflate(R.layout.activity_person, container, false);
         context = getContext();
 
         personRecyclerView = (RecyclerView) view.findViewById(R.id.person_recycle_view);
@@ -50,18 +50,19 @@ public class PersonFragment extends Fragment {
         adapter = new PersonAdapter(personList);
         personRecyclerView.setAdapter(adapter);
 
-        if(ContextCompat.checkSelfPermission(context,
+        if (ContextCompat.checkSelfPermission(context,
                 Manifest.permission.READ_CONTACTS)
-                != PackageManager.PERMISSION_GRANTED){
+                != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions((Activity) context,
-                    new String[]{Manifest.permission.READ_CONTACTS},1);
-        }else{
+                    new String[]{Manifest.permission.READ_CONTACTS}, 1);
+        } else {
             readContacts();
         }
 
         return view;
     }
-    private void readContacts(){
+
+    private void readContacts() {
         Cursor cursor = null;
         try {
             cursor = context.getContentResolver().query(
@@ -79,21 +80,22 @@ public class PersonFragment extends Fragment {
                 }
                 adapter.notifyDataSetChanged();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            if(cursor!=null)
+        } finally {
+            if (cursor != null)
                 cursor.close();
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
+        switch (requestCode) {
             case 1:
-                if(grantResults.length > 0 && grantResults[0]
-                        == PackageManager.PERMISSION_GRANTED){
+                if (grantResults.length > 0 && grantResults[0]
+                        == PackageManager.PERMISSION_GRANTED) {
                     readContacts();
-                }else{
+                } else {
                     Toast.makeText(context, "你拒绝了权限申请", Toast.LENGTH_SHORT).show();
                 }
                 break;

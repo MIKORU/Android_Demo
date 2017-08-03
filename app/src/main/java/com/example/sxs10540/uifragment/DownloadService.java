@@ -122,7 +122,7 @@ public class DownloadService extends Service {
                     String directory = Environment.getExternalStoragePublicDirectory(
                             Environment.DIRECTORY_DOWNLOADS
                     ).getPath();
-                    File file = new File(directory + filename );
+                    File file = new File(directory + filename);
                     if (file.exists()) {
                         file.delete();
                     }

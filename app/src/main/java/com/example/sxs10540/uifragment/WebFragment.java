@@ -45,7 +45,7 @@ public class WebFragment extends Fragment {
 
     private static final String TAG = "WebFragment";
 
-    private Context context ;
+    private Context context;
 
     TextView responseText;
     String responseData;
@@ -55,7 +55,7 @@ public class WebFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_web,container,false);
+        View view = inflater.inflate(R.layout.activity_web, container, false);
         context = getContext();
 
         Button sendRequest = (Button) view.findViewById(R.id.send_request);
@@ -77,6 +77,7 @@ public class WebFragment extends Fragment {
 
         return view;
     }
+
     private void sendOkHttpRequest() {
         HttpUtil.sendOkHttpRequest(address, new okhttp3.Callback() {
 
@@ -226,7 +227,7 @@ public class WebFragment extends Fragment {
      * @param app
      */
     private void showResponse(final App app) {
-        ((Activity)context).runOnUiThread(new Runnable() {
+        ((Activity) context).runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 responseText.setText("name is" + app.getName() + "\n" +

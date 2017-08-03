@@ -1,10 +1,7 @@
 package com.example.sxs10540.uifragment;
 
-import android.app.Activity;
-import android.app.VoiceInteractor;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -12,11 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,13 +17,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.sxs10540.uidatabase.MyDatabaseHelper;
 import com.example.sxs10540.uiwigettest.MainActivity;
 import com.example.sxs10540.uiwigettest.R;
-import com.example.sxs10540.uiwigettest.SecondActivity;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -52,6 +43,8 @@ public class MainFragment extends Fragment {
     private SQLiteDatabase db;
 
     private DrawerLayout drawerLayout;
+    private MainActivity mainActivity = (MainActivity) getActivity();
+    private ChatFragment chatFragment = new ChatFragment();
 
     private Context context;
 
@@ -66,8 +59,6 @@ public class MainFragment extends Fragment {
         remeberPass = (CheckBox) view.findViewById(R.id.remeber);
         Button button = (Button) view.findViewById(R.id.login);
         drawerLayout = (DrawerLayout) view.findViewById(R.id.drawer);
-        NavigationView navigationView = (NavigationView) view.findViewById(R.id.nav_view);
-        ImageView imageView = (ImageView) view.findViewById(R.id.other);
 
         load();
 
@@ -86,9 +77,8 @@ public class MainFragment extends Fragment {
                     String passwords = cursor.getString(cursor.getColumnIndex("password"));
                     if (uname.equals(name) && pd.equals(passwords)) {
                         Toast.makeText(context, "登陆成功", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(context, SecondActivity.class);
-                        startActivity(intent);
-                        ((Activity) context).finish();
+                        mainActivity.replacesFragment(chatFragment);
+
                     } else {
                         Toast.makeText(context, "用户名或密码错误", Toast.LENGTH_SHORT).show();
                     }
